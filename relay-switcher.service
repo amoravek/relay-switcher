@@ -5,8 +5,7 @@ Description=Simple app causing a relay to open or close based on a heatpump stat
 After=network.target
 
 [Service]
-User=root
-Group=root
+Type=simple
 WorkingDirectory=/home/amoravek/relay-switcher
 ExecStart=/usr/bin/python3 /home/amoravek/relay-switcher/relay-switcher.py
 Restart=always
