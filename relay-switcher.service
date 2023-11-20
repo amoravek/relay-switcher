@@ -1,3 +1,5 @@
+# put this file into /etc/systemd/system/
+
 [Unit]
 Description=Simple app causing a relay to open or close based on a heatpump state (equipped with luxtronik 2.0 regulation).
 After=network.target
