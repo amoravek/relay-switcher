@@ -1,0 +1,13 @@
+[Unit]
+Description=Simple app causing a relay to open or close based on a heatpump state (equipped with luxtronik 2.0 regulation).
+After=network.target
+
+[Service]
+User=amoravek  # Replace with your app's user
+Group=amoravek  # Replace with your app's group
+WorkingDirectory=/home/amoravek/relay-switcher
+ExecStart=/usr/bin/python3 /home/amoravek/relay-switcher/relay-switcher.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
