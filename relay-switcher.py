@@ -68,7 +68,7 @@ if __name__ == '__main__':
     try:
         logger.addHandler(handler)
         start_periodic_task()
-        app.run(debug=False, port=8080)
+        app.run(debug=False, host='0.0.0.0', port=8080)
     except Exception as e:
         logger.error(f'Startup error {e}')
     finally:
