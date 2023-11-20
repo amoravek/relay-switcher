@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for
 from mylux import state
 import logging
 from logging.handlers import TimedRotatingFileHandler
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 logger = logging.getLogger('app_logger')
 logger.setLevel(logging.DEBUG)
@@ -21,9 +21,9 @@ HEATPUMP_HOT_WATER_STATE_NUMBER = 1
 UPDATE_DELAY_SECS = 5
 
 RELAY_PIN = 23
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(RELAY_PIN, GPIO.OUT)
-# GPIO.output(RELAY_PIN, 0)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RELAY_PIN, GPIO.OUT)
+GPIO.output(RELAY_PIN, 0)
 
 relay_closed = True
 heatpump_state = 5
@@ -72,5 +72,5 @@ if __name__ == '__main__':
     except Exception as e:
         logger.error(f'Startup error {e}')
     finally:
-        # GPIO.cleanup()
+        GPIO.cleanup()
         logger.info('Exited')

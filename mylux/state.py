@@ -20,14 +20,10 @@ def get_operational_state(host, port):
 
       for i in range(len):
         array_calculated.append(struct.unpack('!i', s.recv(4))[0])
-  except Exception as e:
-    print(f"Connection error: {e}")
+
+      return int(array_calculated[80])
   finally:
-    try:
-      s.close ()
-    except Exception as e:
-      print(f"Disconnect error: {e}")
-      pass
+    s.close ()
 
   return int(array_calculated[80])
 
