@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ovládání cirkulace čerpadla podlahového topení</title>
+    <meta http-equiv="refresh" content="5">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Režim tepelého čerpadla: {{ state }}</h1>
+    <h1>Oběhové čerpadlo běží: {% if relay_closed %}ANO{% else %}NE{% endif %}</h1>
+    <form action="/toggle" method="post">
+        <button type="submit">{% if relay_closed %}Vypnout{% else %}Zapnout{% endif %}</button>
+    </form>
+</body>
+</html>
