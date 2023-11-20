@@ -49,7 +49,7 @@ def update_state():
 
     # stop circulation while perparing hot water
     if heatpump_state == HEATPUMP_HOT_WATER_STATE_NUMBER:
-        logger.debug("Heatpump is in the hot water preperation state")
+        logger.debug("Heatpump is preparing hot water")
         relay_closed = False
     else:
         relay_closed = True
