@@ -2,6 +2,7 @@ import threading
 from flask import Flask, render_template, redirect, url_for
 from mylux import state
 import logging
+import traceback
 from logging.handlers import TimedRotatingFileHandler
 import RPi.GPIO as GPIO
 
@@ -64,7 +65,7 @@ def start_periodic_task():
         update_state()
         update_relay_state()
     except Exception as e:
-        logger.error("xxxx")
+        logger.error(traceback.format_exc())
 
     threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
         start_periodic_task()
         app.run(debug=False, host='0.0.0.0', port=8080)
     except Exception as e:
-        logger.error(f'Startup error {e}')
+        logger.error(traceback.format_exc())
     finally:
         GPIO.cleanup()
         logger.info('Exited')
