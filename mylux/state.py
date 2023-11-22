@@ -21,7 +21,8 @@ def get_operational_state(host, port):
       for i in range(len):
         array_calculated.append(struct.unpack('!i', s.recv(4))[0])
 
-      return int(array_calculated[80])
+      # return int(array_calculated[80])
+      return 1
   finally:
     s.close ()
 
