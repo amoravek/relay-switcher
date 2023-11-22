@@ -4,6 +4,8 @@ import struct
 import datetime, time
 
 def get_operational_state(host, port):
+  array_calculated = []
+
   try:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
       s.connect((host, port))
@@ -16,17 +18,14 @@ def get_operational_state(host, port):
 
       stat = struct.unpack('!i', s.recv(4))[0]
       len = struct.unpack('!i', s.recv(4))[0]
-      array_calculated = []
 
       for i in range(len):
         array_calculated.append(struct.unpack('!i', s.recv(4))[0])
-
-      # return int(array_calculated[80])
-      return 1
   finally:
     s.close ()
 
-  return int(array_calculated[80])
+  # return int(array_calculated[80])
+  return 1
 
 def get_state_name(state_number):
     state_names = {
