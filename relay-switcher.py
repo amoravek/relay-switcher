@@ -57,11 +57,15 @@ def update_state():
 def update_relay_state():
     pin_output = int(relay_closed)
     logger.info(f'Pin{RELAY_PIN}={pin_output}')
-    # GPIO.output(RELAY_PIN, pin_output)
+    GPIO.output(RELAY_PIN, pin_output)
 
 def start_periodic_task():
-    update_state()
-    update_relay_state()    
+    try:
+        update_state()
+        update_relay_state()
+    except Exception as e:
+        logger.error("")
+
     threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
