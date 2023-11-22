@@ -22,9 +22,6 @@ HEATPUMP_HOT_WATER_STATE_NUMBER = 1
 UPDATE_DELAY_SECS = 5
 
 RELAY_PIN = 23
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.OUT)
-GPIO.output(RELAY_PIN, 0)
 
 relay_closed = True
 heatpump_state = 5
@@ -72,6 +69,9 @@ def start_periodic_task():
 if __name__ == '__main__':
     try:
         GPIO.cleanup()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(RELAY_PIN, GPIO.OUT)
+        GPIO.output(RELAY_PIN, 0)
         logger.addHandler(handler)
         start_periodic_task()
         app.run(debug=False, host='0.0.0.0', port=8080)
