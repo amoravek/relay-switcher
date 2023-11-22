@@ -17,7 +17,7 @@ try:
         else:  
             GPIO.output(RELAY_PIN, GPIO.LOW)
 
-        time.sleep(5)
+        time.sleep(2)
         is_on = not is_on
 finally:
     GPIO.cleanup()
