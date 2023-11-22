@@ -64,12 +64,13 @@ def start_periodic_task():
         update_state()
         update_relay_state()
     except Exception as e:
-        logger.error("")
+        logger.error("xxxx")
 
     threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
+        GPIO.cleanup()
         logger.addHandler(handler)
         start_periodic_task()
         app.run(debug=False, host='0.0.0.0', port=8080)
