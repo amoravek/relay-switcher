@@ -3,17 +3,22 @@ import time
 
 RELAY_PIN = 23
 
-GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
+GPIO.cleanup()
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 
-data = True
+is_on = True
 
 try:
     while True:
-        print(f'data: {data}')
-        GPIO.output(RELAY_PIN, data)
+        print(f'is_on: {is_on}')
+        
+        if is_on:
+            GPIO.output(RELAY_PIN, GPIO.HIGH)
+        else:  
+            GPIO.output(RELAY_PIN, GPIO.LOW)
+
         time.sleep(5)
-        data = not data
+        is_on = not is_on
 finally:
     GPIO.cleanup()

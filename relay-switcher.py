@@ -68,8 +68,8 @@ def start_periodic_task():
 
 if __name__ == '__main__':
     try:
-        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
+        GPIO.cleanup()
         GPIO.setup(RELAY_PIN, GPIO.OUT)
         GPIO.output(RELAY_PIN, 0)
         logger.addHandler(handler)
