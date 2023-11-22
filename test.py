@@ -4,8 +4,8 @@ import time
 RELAY_PIN = 23
 
 GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()
 GPIO.setup(RELAY_PIN, GPIO.OUT)
+GPIO.cleanup()
 
 is_on = True
 
