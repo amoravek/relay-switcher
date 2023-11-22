@@ -9,9 +9,11 @@ GPIO.setup(RELAY_PIN, GPIO.OUT)
 
 data = True
 
-while True:
-    GPIO.output(RELAY_PIN, data)
-    time.sleep(5)
-    data = not data
-
-GPIO.cleanup()
+try:
+    while True:
+        print(f'data: {data}')
+        GPIO.output(RELAY_PIN, data)
+        time.sleep(5)
+        data = not data
+finally:
+    GPIO.cleanup()
