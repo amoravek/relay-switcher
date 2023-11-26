@@ -91,7 +91,7 @@ def update_relay_state():
         if RELAY_OP_CODE_TIMEOUT_SUFFIX:
             op_code += RELAY_OP_CODE_TIMEOUT_SUFFIX
 
-    logger.info(f'{onoff} circuit (op_code: ' + op_code + ')')
+    logger.info(f'{onoff} normally closed circuit (op_code: ' + op_code + ')')
     switch_relay(op_code)
 
 
