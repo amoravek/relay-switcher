@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Režim tepelého čerpadla: {{ state }}</h1>
+    <h1>Režim tepelého čerpadla: {{ state_name }}</h1>
     <h1>Oběhové čerpadlo běží: {% if relay_opened %}NE{% else %}ANO{% endif %}</h1>
-    <h1>Režim aplikace: {{ app_state }}</h1>
+    <h1>Režim aplikace: {% if forced %}FORCED{% else %}AUTO{% endif %}</h1>
     <form action="/toggle" method="post">
         <button type="submit" name='onoff'>{% if relay_opened %}Zapnout{% else %}Vypnout{% endif %}</button>
         <button type="submit" name='auto'>Auto</button>
