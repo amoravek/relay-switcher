@@ -50,11 +50,15 @@ def toggle():
         logger.debug('Manual mode')
         relay_opened = not relay_opened
         manual_mode = True
+        
+        if timer != None:
+            timer.cancel()
+  
+        update_relay_state()
     elif 'auto' in request.form:
         logger.debug('Auto mode')
         manual_mode = False
-
-    start_periodic_task()
+        start_periodic_task()
 
     return redirect(url_for('index'))
 
@@ -106,11 +110,7 @@ def start_periodic_task():
     except Exception as e:
         logger.error(traceback.format_exc())
 
-    if not manual_mode:
-        timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
-    else:
-        if timer != None:
-            timer.cancel()
+    timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
