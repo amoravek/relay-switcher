@@ -51,10 +51,10 @@ def toggle():
         relay_opened = not relay_opened
         manual_mode = True
         
-        if timer != None:
-            logger.debug('Cancelling timer ...')
-            if timer.active():
-                timer.cancel()
+        # if timer != None:
+        logger.debug('Cancelling timer ...')
+        if timer.active():
+            timer.cancel()
   
         update_relay_state()
     elif 'auto' in request.form:
