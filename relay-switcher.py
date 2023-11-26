@@ -81,19 +81,18 @@ def update_relay_state():
     # logger.info(f'Pin{RELAY_PIN}={pin_output}')
     # GPIO.output(RELAY_PIN, pin_output)
     
-    op_code = '1' + RELAY_NUMBER
-    onoff = 'Opening'
-    
-    if not relay_opened:
+    if relay_opened:
+        op_code = '1' + RELAY_NUMBER
+        onoff = 'Opening'
+
+        if RELAY_OP_CODE_TIMEOUT_SUFFIX:
+            op_code += RELAY_OP_CODE_TIMEOUT_SUFFIX
+    else:
         op_code = '2' + RELAY_NUMBER
         onoff = 'Closing'
 
-    if RELAY_OP_CODE_TIMEOUT_SUFFIX:
-        op_code += RELAY_OP_CODE_TIMEOUT_SUFFIX
-
     logger.info(f'{onoff} normally closed circuit (op_code: ' + op_code + ')')
     switch_relay(op_code)
-
 
 def start_periodic_task():
     try:
