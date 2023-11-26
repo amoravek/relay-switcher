@@ -9,7 +9,7 @@
     <h1>Režim tepelého čerpadla: {{ state }}</h1>
     <h1>Oběhové čerpadlo běží: {% if relay_opened %}NE{% else %}ANO{% endif %}</h1>
     <form action="/toggle" method="post">
-        <button type="submit" name='onoff'>{% if relay_opened %}Vypnout{% else %}Zapnout{% endif %}</button>
+        <button type="submit" name='onoff'>{% if relay_opened %}Zapnout{% else %}Vypnout{% endif %}</button>
         <button type="submit" name='auto'>Auto</button>
     </form>
 </body>
