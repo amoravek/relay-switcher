@@ -82,16 +82,16 @@ def update_relay_state():
     # GPIO.output(RELAY_PIN, pin_output)
     
     op_code = '1' + RELAY_NUMBER
-    onoff = 'Closing'
+    onoff = 'Opening'
     
     if not relay_opened:
         op_code = '2' + RELAY_NUMBER
-        onoff = 'Opening'
+        onoff = 'Closing'
 
         if RELAY_OP_CODE_TIMEOUT_SUFFIX:
             op_code += RELAY_OP_CODE_TIMEOUT_SUFFIX
 
-    logger.info(f'{onoff} relay {RELAY_NUMBER} (op_code: ' + op_code + ')')
+    logger.info(f'{onoff} circuit (op_code: ' + op_code + ')')
     switch_relay(op_code)
 
 
