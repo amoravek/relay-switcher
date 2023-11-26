@@ -97,14 +97,8 @@ def update_relay_state():
 
 def start_periodic_task():
     try:
-        # old_relay_state = relay_closed
         update_state()
-
-        # if old_relay_state != relay_closed:
-            # logger.debug('Heatpump state changed - changing relay state')
         update_relay_state()
-        # else:
-            # logger.debug('Heatpump state has not changed')
 
     except Exception as e:
         logger.error(traceback.format_exc())
