@@ -33,27 +33,27 @@ RELAY_OP_CODE_TIMEOUT_SUFFIX = ':' + str(2 * UPDATE_DELAY_SECS)
 relay_opened = False
 heatpump_state = 5
 state_name = state.get_state_name(heatpump_state)
-forced = False
+manual_mode = False
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html', relay_opened=relay_opened, state_name=state_name, forced=forced);
+    return render_template('index.html', relay_opened=relay_opened, state_name=state_name, manual_mode=manual_mode, refresh_rate=UPDATE_DELAY_SECS);
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
-    global relay_opened, forced
+    global relay_opened, manual_mode
 
     print(request.form)
 
     if 'onoff' in request.form:
         logger.debug('Force mode')
         relay_opened = not relay_opened
-        forced = True
+        manual_mode = True
     elif 'auto' in request.form:
         logger.debug('Auto mode')
-        forced = False
+        manual_mode = False
 
     return redirect(url_for('index'))
 
@@ -69,7 +69,7 @@ def update_state():
     state_name = state.get_state_name(heatpump_state)
     logger.info(f'Heatpump state reloaded ({heatpump_state} -> {state_name})')
 
-    if not forced:
+    if not manual_mode:
         # stop circulation while perparing hot water
         if heatpump_state == HEATPUMP_HOT_WATER_STATE_NUMBER:
             logger.debug("Heatpump is preparing hot water")

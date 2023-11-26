@@ -8,7 +8,8 @@
 <body>
     <h1>Režim tepelého čerpadla: {{ state_name }}</h1>
     <h1>Oběhové čerpadlo běží: {% if relay_opened %}NE{% else %}ANO{% endif %}</h1>
-    <h1>Režim aplikace: {% if forced %}MANUAL{% else %}AUTO{% endif %}</h1>
+    <h1>Režim aplikace: {% if manual_mode %}MANUAL{% else %}AUTO{% endif %}</h1>
+    <h1>Perioda obnovení: {{ refresh_rate }} s</h1>
     <form action="/toggle" method="post">
         <button type="submit" name='onoff'>{% if relay_opened %}Zapnout{% else %}Vypnout{% endif %}</button>
         <button type="submit" name='auto'>Auto</button>
