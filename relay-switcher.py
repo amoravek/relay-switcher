@@ -95,6 +95,7 @@ def update_relay_state():
 
 def start_periodic_task():
     try:
+        logger.debug('Performing refresh ...')
         update_state()
         update_relay_state()
     except Exception as e:
