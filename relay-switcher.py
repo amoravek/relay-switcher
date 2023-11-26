@@ -35,8 +35,8 @@ heatpump_state = 5
 state_name = state.get_state_name(heatpump_state)
 manual_mode = False
 
-app = Flask(__name__)
 timer = None
+app = Flask(__name__)
 
 @app.route('/')
 def index():
