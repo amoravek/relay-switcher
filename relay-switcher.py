@@ -39,7 +39,7 @@ forced = False
 
 @app.route('/')
 def index():
-    return render_template('index.html', relay_closed=relay_opened, state=state_name);
+    return render_template('index.html', relay_opened=relay_opened, state=state_name);
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
