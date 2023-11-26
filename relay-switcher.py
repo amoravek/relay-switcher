@@ -44,7 +44,7 @@ def index():
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
-    global relay_opened, manual_mode
+    global relay_opened, manual_mode, timer
 
     if 'onoff' in request.form:
         logger.debug('Manual mode')
@@ -52,7 +52,9 @@ def toggle():
         manual_mode = True
         
         if timer != None:
-            timer.cancel()
+            logger.debug('Cancelling timer ...')
+            if timer.active():
+                timer.cancel()
   
         update_relay_state()
     elif 'auto' in request.form:
@@ -68,7 +70,8 @@ def switch_relay(op_code):
         s.connect((RELAY_BOARD_IP, RELAY_BOARD_PORT))
         s.sendall(op_code.encode())
 
-def update_state():
+def reload_heatpump_state():
+    logger.debug('Reloading heatpump state ...')
     global heatpump_state, state_name, relay_opened
     heatpump_state = state.get_operational_state(HEATPUMP_HOST, HEATPUMP_PORT)
     state_name = state.get_state_name(heatpump_state)
@@ -83,6 +86,8 @@ def update_state():
             relay_opened = False
 
 def update_relay_state():
+    logger.debug('Updating relay state ...')
+
     # pin_output = int(relay_closed)
     # logger.info(f'Pin{RELAY_PIN}={pin_output}')
     # GPIO.output(RELAY_PIN, pin_output)
@@ -104,8 +109,7 @@ def start_periodic_task():
     global timer
 
     try:
-        logger.debug('Performing refresh ...')
-        update_state()
+        reload_heatpump_state()
         update_relay_state()
     except Exception as e:
         logger.error(traceback.format_exc())
@@ -118,10 +122,12 @@ if __name__ == '__main__':
         # GPIO.setup(RELAY_PIN, GPIO.OUT)
         # GPIO.output(RELAY_PIN, 0)
         logger.addHandler(handler)
-        start_periodic_task()
         app.run(debug=False, host='0.0.0.0', port=APP_PORT)
+        start_periodic_task()
     except Exception as e:
         logger.error(traceback.format_exc())
     finally:
         # GPIO.cleanup()
+        if timer != None and timer.active():
+            timer.cancel()
         logger.info('Exited')
