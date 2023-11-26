@@ -84,7 +84,7 @@ def update_relay_state():
         op_code = '1' + RELAY_NUMBER
         onoff = 'Opening'
 
-        if RELAY_OP_CODE_TIMEOUT_SUFFIX:
+        if RELAY_OP_CODE_TIMEOUT_SUFFIX and not manual_mode:
             op_code += RELAY_OP_CODE_TIMEOUT_SUFFIX
     else:
         op_code = '2' + RELAY_NUMBER
