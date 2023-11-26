@@ -15,8 +15,6 @@ handler = TimedRotatingFileHandler('app.log', when='midnight', interval=1, backu
 handler.suffix = '%Y-%m-%d'
 handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 
-app = Flask(__name__)
-
 APP_PORT = 8080
 
 HEATPUMP_HOST = '192.168.1.192'
@@ -36,6 +34,8 @@ relay_opened = False
 heatpump_state = 5
 state_name = state.get_state_name(heatpump_state)
 forced = False
+
+app = Flask(__name__)
 
 @app.route('/')
 def index():
