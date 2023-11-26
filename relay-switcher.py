@@ -115,6 +115,7 @@ def start_periodic_task():
         logger.error(traceback.format_exc())
 
     timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
+    timer.cancel()
 
 if __name__ == '__main__':
     try:
