@@ -11,8 +11,8 @@
     <h1>Režim aplikace: {% if manual_mode %}MANUAL{% else %}AUTO{% endif %}</h1>
     <h1>Perioda obnovení: {{ refresh_rate }} s</h1>
     <form action="/toggle" method="post">
-        <button type="submit" name='onoff'>{% if relay_opened %}Zapnout{% else %}Vypnout{% endif %}</button>
-        <button type="submit" name='auto'>Auto</button>
+        <button type="submit" name='onoff' {% if manual_mode %}disabled="true"{% endif %}>{% if relay_opened %}Zapnout{% else %}Vypnout{% endif %}</button>
+        <button type="submit" name='auto' {% if not manual_mode %}disabled="true"{% endif %}>Auto</button>
     </form>
 </body>
 </html>
