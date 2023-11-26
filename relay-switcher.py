@@ -106,6 +106,7 @@ def update_relay_state():
     switch_relay(op_code)
 
 def start_periodic_task():
+    logger.debug('Starting periodic tasks ...')
     global timer
 
     try:
