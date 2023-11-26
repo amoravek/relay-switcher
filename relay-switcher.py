@@ -13,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 
 handler = TimedRotatingFileHandler('app.log', when='midnight', interval=1, backupCount=5)
 handler.suffix = '%Y-%m-%d'
-handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s', encoding='utf-8'))
 
 app = Flask(__name__)
 
