@@ -69,12 +69,13 @@ def update_state():
     state_name = state.get_state_name(heatpump_state)
     logger.info(f'Heatpump state reloaded ({heatpump_state} -> {state_name})')
 
-    # stop circulation while perparing hot water
-    if heatpump_state == HEATPUMP_HOT_WATER_STATE_NUMBER:
-        logger.debug("Heatpump is preparing hot water")
-        relay_opened = True
-    else:
-        relay_opened = False
+    if not forced:
+        # stop circulation while perparing hot water
+        if heatpump_state == HEATPUMP_HOT_WATER_STATE_NUMBER:
+            logger.debug("Heatpump is preparing hot water")
+            relay_opened = True
+        else:
+            relay_opened = False
 
 def update_relay_state():
     # pin_output = int(relay_closed)
