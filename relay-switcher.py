@@ -84,7 +84,7 @@ def update_relay_state():
     onoff = 'on'
     
     if not relay_closed:
-        op_code = '1' + RELAY_NUMBER
+        op_code = '2' + RELAY_NUMBER
         onoff = 'off'
 
     logger.info(f'Switching {onoff} relay {RELAY_NUMBER} (op_code: ' + op_code + ')')
