@@ -35,7 +35,6 @@ heatpump_state = 5
 state_name = state.get_state_name(heatpump_state)
 manual_mode = False
 
-timer = None
 app = Flask(__name__)
 
 @app.route('/')
@@ -44,17 +43,12 @@ def index():
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
-    global relay_opened, manual_mode, timer
+    global relay_opened, manual_mode
 
     if 'onoff' in request.form:
         logger.debug('Manual mode')
         relay_opened = not relay_opened
         manual_mode = True
-        
-        if timer != None and timer.active():
-            logger.debug('Cancelling timer ...')
-            timer.cancel()
-  
         update_relay_state()
     elif 'auto' in request.form:
         logger.debug('Auto mode')
@@ -105,8 +99,10 @@ def update_relay_state():
     switch_relay(op_code)
 
 def start_periodic_task():
+    if manual_mode:
+        pass
+    
     logger.debug('Starting periodic tasks ...')
-    global timer
 
     try:
         reload_heatpump_state()
@@ -114,8 +110,8 @@ def start_periodic_task():
     except Exception as e:
         logger.error(traceback.format_exc())
 
-    timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
-    timer.cancel()
+    if not manual_mode:
+        threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
