@@ -11,7 +11,7 @@ import socket
 logger = logging.getLogger('app_logger')
 logger.setLevel(logging.DEBUG)
 
-handler = TimedRotatingFileHandler('app.log', when='midnight', interval=1, backupCount=5)
+handler = TimedRotatingFileHandler('app.log', when='midnight', interval=1, backupCount=5, encoding='utf-8')
 handler.suffix = '%Y-%m-%d'
 handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 
