@@ -122,8 +122,8 @@ if __name__ == '__main__':
         # GPIO.setup(RELAY_PIN, GPIO.OUT)
         # GPIO.output(RELAY_PIN, 0)
         logger.addHandler(handler)
-        app.run(debug=False, host='0.0.0.0', port=APP_PORT)
         start_periodic_task()
+        app.run(debug=False, host='0.0.0.0', port=APP_PORT)
     except Exception as e:
         logger.error(traceback.format_exc())
     finally:
