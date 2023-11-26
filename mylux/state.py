@@ -29,14 +29,14 @@ def get_operational_state(host, port):
 
 def get_state_name(state_number):
     state_names = {
-        0: 'Topení',
+        0: 'Topeni',
         1: 'TUV',
-        2: 'Bazén / fotovoltaika',
-        3: 'Pomocný zámek',
-        4: 'Odmrazování',
-        5: 'Žádný požadavek',
-        6: 'Topení (ext. zdroj)',
-        7: 'Chlazení'
+        2: 'Bazen / fotovoltaika',
+        3: 'Pomocny zamek',
+        4: 'Odmrazovani',
+        5: 'Zadny pozadavek',
+        6: 'Topeni (ext. zdroj)',
+        7: 'Chlazeni'
     }
 
     return state_names.get(state_number, 'Unknown')
