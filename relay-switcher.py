@@ -28,6 +28,7 @@ UPDATE_DELAY_SECS = 5
 RELAY_BOARD_IP = '192.168.1.100'
 RELAY_BOARD_PORT = 6722
 RELAY_NUMBER = '1'
+RELAY_OP_CODE_TIMEOUT = ':' + UPDATE_DELAY_SECS
 
 # RELAY_PIN = 23
 
@@ -87,13 +88,16 @@ def update_relay_state():
         op_code = '2' + RELAY_NUMBER
         onoff = 'Opening'
 
+        if RELAY_OP_CODE_TIMEOUT:
+            op_code += RELAY_OP_CODE_TIMEOUT
+
     logger.info(f'{onoff} relay {RELAY_NUMBER} (op_code: ' + op_code + ')')
     switch_relay(op_code)
 
 
 def start_periodic_task():
     try:
-        old_relay_state = relay_closed
+        # old_relay_state = relay_closed
         update_state()
 
         # if old_relay_state != relay_closed:
