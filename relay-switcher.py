@@ -101,7 +101,8 @@ def start_periodic_task():
     except Exception as e:
         logger.error(traceback.format_exc())
 
-    threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
+    if not manual_mode:
+        threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
