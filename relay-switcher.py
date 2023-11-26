@@ -97,7 +97,7 @@ def update_relay_state():
 
 def start_periodic_task():
     global timer
-    
+
     try:
         logger.debug('Performing refresh ...')
         update_state()
@@ -108,7 +108,8 @@ def start_periodic_task():
     if not manual_mode:
         timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
     else:
-        timer.cancel()
+        if timer != None:
+            timer.cancel()
 
 if __name__ == '__main__':
     try:
