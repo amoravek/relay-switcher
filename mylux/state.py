@@ -24,8 +24,8 @@ def get_operational_state(host, port):
   finally:
     s.close ()
 
-  # return int(array_calculated[80])
-  return 1
+  return int(array_calculated[80])
+  # return 1
 
 def get_state_name(state_number):
     state_names = {
