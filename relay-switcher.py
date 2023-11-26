@@ -32,24 +32,24 @@ RELAY_OP_CODE_TIMEOUT_SUFFIX = ':' + str(2 * UPDATE_DELAY_SECS)
 
 # RELAY_PIN = 23
 
-relay_closed = True
+relay_opened = False
 heatpump_state = 5
 state_name = state.get_state_name(heatpump_state)
 forced = False
 
 @app.route('/')
 def index():
-    return render_template('index.html', relay_closed=relay_closed, state=state_name);
+    return render_template('index.html', relay_closed=relay_opened, state=state_name);
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
-    global relay_closed, forced
+    global relay_opened, forced
 
     print(request.form)
 
     if 'onoff' in request.form:
         logger.debug('Force mode')
-        relay_closed = not relay_closed
+        relay_opened = not relay_opened
         forced = True
     elif 'auto' in request.form:
         logger.debug('Auto mode')
@@ -64,7 +64,7 @@ def switch_relay(op_code):
         s.sendall(op_code.encode())
 
 def update_state():
-    global heatpump_state, state_name, relay_closed
+    global heatpump_state, state_name, relay_opened
     heatpump_state = state.get_operational_state(HEATPUMP_HOST, HEATPUMP_PORT)
     state_name = state.get_state_name(heatpump_state)
     logger.info(f'Heatpump state reloaded ({heatpump_state} -> {state_name})')
@@ -72,9 +72,9 @@ def update_state():
     # stop circulation while perparing hot water
     if heatpump_state == HEATPUMP_HOT_WATER_STATE_NUMBER:
         logger.debug("Heatpump is preparing hot water")
-        relay_closed = False
+        relay_opened = True
     else:
-        relay_closed = True
+        relay_opened = False
 
 def update_relay_state():
     # pin_output = int(relay_closed)
@@ -84,7 +84,7 @@ def update_relay_state():
     op_code = '1' + RELAY_NUMBER
     onoff = 'Closing'
     
-    if not relay_closed:
+    if not relay_opened:
         op_code = '2' + RELAY_NUMBER
         onoff = 'Opening'
 
