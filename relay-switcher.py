@@ -99,11 +99,8 @@ def start_periodic_task():
     try:
         update_state()
         update_relay_state()
-
     except Exception as e:
         logger.error(traceback.format_exc())
-
-    threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
@@ -111,6 +108,7 @@ if __name__ == '__main__':
         # GPIO.setup(RELAY_PIN, GPIO.OUT)
         # GPIO.output(RELAY_PIN, 0)
         logger.addHandler(handler)
+        threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
         start_periodic_task()
         app.run(debug=False, host='0.0.0.0', port=APP_PORT)
     except Exception as e:
