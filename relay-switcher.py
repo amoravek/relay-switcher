@@ -58,6 +58,8 @@ def toggle():
         if timer != None:
             timer.cancel()
         start_periodic_task()
+    else:
+        timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
     return redirect(url_for('index'))
 
