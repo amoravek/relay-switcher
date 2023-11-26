@@ -45,10 +45,8 @@ def index():
 def toggle():
     global relay_opened, manual_mode
 
-    print(request.form)
-
     if 'onoff' in request.form:
-        logger.debug('Force mode')
+        logger.debug('Manual mode')
         relay_opened = not relay_opened
         manual_mode = True
     elif 'auto' in request.form:
