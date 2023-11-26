@@ -36,6 +36,7 @@ state_name = state.get_state_name(heatpump_state)
 manual_mode = False
 
 app = Flask(__name__)
+timer = None
 
 @app.route('/')
 def index():
@@ -52,6 +53,11 @@ def toggle():
     elif 'auto' in request.form:
         logger.debug('Auto mode')
         manual_mode = False
+
+    if manual_mode:
+        if timer != None:
+            timer.cancel()
+        start_periodic_task()
 
     return redirect(url_for('index'))
 
@@ -94,6 +100,8 @@ def update_relay_state():
     switch_relay(op_code)
 
 def start_periodic_task():
+    global timer
+
     try:
         logger.debug('Performing refresh ...')
         update_state()
@@ -102,7 +110,7 @@ def start_periodic_task():
         logger.error(traceback.format_exc())
 
     if not manual_mode:
-        threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
+        timer = threading.Timer(UPDATE_DELAY_SECS, start_periodic_task).start()
 
 if __name__ == '__main__':
     try:
