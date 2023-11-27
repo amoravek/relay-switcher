@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Režim tepelého čerpadla: {{ state_name }}</h1>
+    <h1>Režim tepelného čerpadla: {{ state_name }}</h1>
     <h1>Oběhové čerpadlo běží: {% if relay_opened %}NE{% else %}ANO{% endif %}</h1>
     <h1>Režim aplikace: {% if manual_mode %}MANUAL{% else %}AUTO{% endif %}</h1>
     <h1>Perioda obnovení: {{ refresh_rate }} s</h1>
