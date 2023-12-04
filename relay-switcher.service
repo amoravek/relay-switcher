@@ -5,11 +5,11 @@ Description=Simple app causing a relay to open or close based on a heatpump stat
 After=network.target
 
 [Service]
-User=rpi
-Group=rpi
+User=root
+Group=root
 Type=simple
-WorkingDirectory=/home/rpi/relay-switcher
-ExecStart=/usr/bin/python3 /home/rpi/relay-switcher/relay-switcher.py
+WorkingDirectory=/opt/relay-switcher
+ExecStart=/usr/bin/python3 relay-switcher.py
 Restart=always
 
 [Install]
