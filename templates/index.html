@@ -4,6 +4,41 @@
     <title>Ovládání cirkulace čerpadla podlahového topení</title>
     <meta http-equiv="refresh" content="5">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adding viewport meta tag for responsiveness -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        @media only screen and (max-width: 480px) { /* Adjustments for smaller screens */
+            h1 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>    
 </head>
 <body>
     <h1>Režim tepelného čerpadla: {{ state_name }}</h1>
